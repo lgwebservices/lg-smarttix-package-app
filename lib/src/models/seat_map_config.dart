@@ -18,6 +18,10 @@ class SeatMapConfig {
   /// Whether to show seat availability indicators.
   final bool showAvailability;
 
+  /// Show blocked seats with a distinct color and X marker (promoter mode).
+  /// When false, blocked seats look the same as booked (public mode).
+  final bool showBlockedMarker;
+
   /// Append a cache-buster query param to the bundle URL on each load.
   /// The CDN serves the bundle with max-age=86400, so without this
   /// the WebView may show a stale version for up to 24h.
@@ -30,6 +34,7 @@ class SeatMapConfig {
     this.maxSeats = 50,
     this.lang = 'es',
     this.showAvailability = true,
+    this.showBlockedMarker = false,
     this.cacheBust = true,
   });
 
@@ -44,6 +49,7 @@ class SeatMapConfig {
           maxSeats == other.maxSeats &&
           lang == other.lang &&
           showAvailability == other.showAvailability &&
+          showBlockedMarker == other.showBlockedMarker &&
           cacheBust == other.cacheBust;
 
   @override
@@ -54,6 +60,7 @@ class SeatMapConfig {
         maxSeats,
         lang,
         showAvailability,
+        showBlockedMarker,
         cacheBust,
       );
 }

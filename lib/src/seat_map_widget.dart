@@ -144,7 +144,18 @@ class _SmartTixSeatMapState extends State<SmartTixSeatMap> {
       final seatId = payload['seatId'] as String?;
       final label = payload['label'] as String? ?? '';
       if (seatId == null) return;
-      widget.onSeatSelected?.call(SeatInfo(seatId: seatId, label: label));
+      widget.onSeatSelected?.call(SeatInfo(
+        seatId: seatId,
+        label: label,
+        sectorName: payload['sectorName'] as String?,
+        sectionLabel: payload['sectionLabel'] as String?,
+        rowLabel: payload['rowLabel'] as String?,
+        seatLabel: payload['seatLabel'] as String?,
+        price: payload['price'] as num?,
+        currency: payload['currency'] as String?,
+        categoryColor: payload['categoryColor'] as String?,
+        status: payload['status'] as String?,
+      ));
     } else if (type == 'seatDeselected') {
       final seatId = payload['seatId'] as String?;
       if (seatId == null) return;

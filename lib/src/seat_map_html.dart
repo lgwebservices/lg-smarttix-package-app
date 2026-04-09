@@ -34,7 +34,8 @@ String buildSeatMapHtml(SeatMapConfig config) {
     api-url="$apiUrl"
     max-seats="${config.maxSeats}"
     lang="${config.lang}"
-    show-availability="${config.showAvailability}">
+    show-availability="${config.showAvailability}"
+    show-blocked-marker="${config.showBlockedMarker}">
   </venue-viewer>
   <script>
     (function () {
@@ -50,7 +51,19 @@ String buildSeatMapHtml(SeatMapConfig config) {
           var label = d.rowLabel && d.label
             ? (d.rowLabel + '-' + d.label)
             : (d.label || (d.seatId || '').slice(0, 8));
-          send({ type: 'seatSelected', seatId: d.seatId, label: label });
+          send({
+            type: 'seatSelected',
+            seatId: d.seatId,
+            label: label,
+            sectorName: d.sectorName || null,
+            sectionLabel: d.sectionLabel || d.blockName || null,
+            rowLabel: d.rowLabel || null,
+            seatLabel: d.label || null,
+            price: d.price || null,
+            currency: d.currency || null,
+            categoryColor: d.categoryColor || null,
+            status: d.status || null
+          });
         });
         el.addEventListener('seatDeselected', function (e) {
           var d = e.detail || {};
