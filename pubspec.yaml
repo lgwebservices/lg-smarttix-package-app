@@ -1,0 +1,19 @@
+name: smarttix_seatmap
+description: Flutter widget that wraps the SmartTix venue-viewer web component for interactive seat maps.
+version: 0.1.0
+homepage: https://github.com/lgwebservices/lg-smarttix-package-app
+repository: https://github.com/lgwebservices/lg-smarttix-package-app
+
+environment:
+  sdk: ^3.8.1
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  webview_flutter: ^4.10.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
