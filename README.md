@@ -1,39 +1,56 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# smarttix_seatmap
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+Flutter widget that wraps the SmartTix `<venue-viewer>` web component for interactive seat maps.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- Renders a venue-viewer inside a WebView with typed Dart callbacks
+- `onSeatSelected` / `onSeatDeselected` events
+- `SeatMapController` for programmatic refresh after seat operations
+- Cache-buster for CDN bundles (bypasses 24h max-age)
+- Configurable: language, max seats, availability display
 
-## Getting started
+## Installation
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+```yaml
+dependencies:
+  smarttix_seatmap: ^0.1.0
+```
+
+Or from git:
+
+```yaml
+dependencies:
+  smarttix_seatmap:
+    git:
+      url: https://github.com/lgwebservices/lg-smarttix-package-app.git
+      ref: main
+```
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
 ```dart
-const like = 'sample';
+import 'package:smarttix_seatmap/smarttix_seatmap.dart';
+
+final controller = SeatMapController();
+
+SmartTixSeatMap(
+  config: const SeatMapConfig(
+    publicToken: 'your-venue-public-token',
+    apiUrl: 'https://api.smarttix.pro',
+    bundleUrl: 'https://cdn.smarttix.pro/v1/venue-viewer.js',
+  ),
+  controller: controller,
+  onSeatSelected: (seat) => print('Selected: ${seat.label}'),
+  onSeatDeselected: (seatId) => print('Deselected: $seatId'),
+  onMapReady: () => print('Map loaded'),
+  onError: (error) => print('Error: $error'),
+)
+
+// After blocking seats, refresh the map:
+controller.refresh();
 ```
 
-## Additional information
+## Publisher
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+Published by [smarttix.pro](https://smarttix.pro).
